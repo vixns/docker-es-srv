@@ -1,0 +1,10 @@
+#!/bin/sh
+exec 2>&1
+
+mkdir -p /usr/share/elasticsearch/config/discovery-file
+[ -e /usr/share/elasticsearch/config/discovery-file/unicast_hosts.txt ] || touch /usr/share/elasticsearch/config/discovery-file/unicast_hosts.txt
+
+# Change the ownership of /usr/share/elasticsearch/data to elasticsearch
+chown -R elasticsearch:elasticsearch /usr/share/elasticsearch/data
+
+exec chpst -u elasticsearch /usr/share/elasticsearch/bin/elasticsearch $ES_OPTIONS
