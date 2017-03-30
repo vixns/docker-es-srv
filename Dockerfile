@@ -1,12 +1,13 @@
-FROM elasticsearch:5.2
+FROM elasticsearch:5.2.2
 
-MAINTAINER Jonathan Martin <jonathan@yuzu.co>
+MAINTAINER Stephane Cottin <stephane.cottin@vixns.com>
 
-RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-file && \
-	/usr/share/elasticsearch/bin/elasticsearch-plugin install x-pack
+RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-file \
+	&& /usr/share/elasticsearch/bin/elasticsearch-plugin install x-pack \
+	&& /usr/share/elasticsearch/bin/elasticsearch-plugin install com.floragunn:search-guard-5:5.2.2-11
 
 ENV DISCOVER_HOSTNAME= \
-ES_OPTIONS="-Expack.security.enabled=false -Ecluster.name=es" \
+ES_OPTIONS="-Expack.security.enabled=false -Ecluster.name=es -Ediscovery.zen.hosts_provider=file" \
 DISCOVERY_FREQ_SECONDS=30 \
 DISCOVER_FILE=/usr/share/elasticsearch/config/discovery-file/unicast_hosts.txt
 
