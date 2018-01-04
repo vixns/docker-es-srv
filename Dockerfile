@@ -1,4 +1,4 @@
-FROM elasticsearch:5.5.2
+FROM elasticsearch:5.6
 
 MAINTAINER Stephane Cottin <stephane.cottin@vixns.com>
 
