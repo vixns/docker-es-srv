@@ -1,20 +1,16 @@
-FROM elasticsearch:5.6
+FROM docker.elastic.co/elasticsearch/elasticsearch-oss:6.1.1
 
-MAINTAINER Stephane Cottin <stephane.cottin@vixns.com>
-
-RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-file \
-	&& /usr/share/elasticsearch/bin/elasticsearch-plugin install x-pack
+RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-file
 
 ENV DISCOVER_HOSTNAME= \
-ES_OPTIONS="-Expack.security.enabled=false -Ecluster.name=es -Ediscovery.zen.hosts_provider=file" \
+ES_OPTIONS="-Ecluster.name=es -Ediscovery.zen.hosts_provider=file" \
 DISCOVERY_FREQ_SECONDS=30 \
 DISCOVER_FILE=/usr/share/elasticsearch/config/discovery-file/unicast_hosts.txt
 
 ADD https://github.com/krallin/tini/releases/download/v0.14.0/tini /tini
-RUN export DEBIAN_FRONTEND=noninteractive \
-&& apt-get update \
-&& apt-get install -y --no-install-recommends runit dnsutils \
-&& rm -rf /var/lib/apt/lists/* \
+RUN curl -s https://packagecloud.io/install/repositories/imeyer/runit/script.rpm.sh | bash \
+&& yum -y install runit-2.1.2-3.el7.centos.x86_64 bind-utils \
+&& yum clean all \
 && chmod +x /tini
 
 COPY service /etc/service
