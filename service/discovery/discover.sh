@@ -13,7 +13,7 @@ dnssrv() {
 	done
 	if [ -n "$res" ]
 	then
-		IPS=$(echo ${res%"\n"} | sort)
+		IPS=$(echo -e ${res%"\n"} | sort)
 	else
 		exit 1
 	fi
