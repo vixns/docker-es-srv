@@ -1,4 +1,4 @@
 #!/bin/sh
 exec 2>&1
-mkdir -p /usr/share/elasticsearch/config/discovery-file
+mkdir -p /usr/share/elasticsearch/config
 exec ./discover.sh
