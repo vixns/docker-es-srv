@@ -1,4 +1,4 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:6.7.2
+FROM docker.elastic.co/elasticsearch/elasticsearch:6.8.1
 
 RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-file
 
