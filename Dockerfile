@@ -1,7 +1,5 @@
 FROM docker.elastic.co/elasticsearch/elasticsearch:6.7.2
 
-RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-file
-
 ENV DISCOVER_HOSTNAME= \
 ES_OPTIONS="-Ecluster.name=es -Ediscovery.zen.hosts_provider=file" \
 DISCOVERY_FREQ_SECONDS=30 \
