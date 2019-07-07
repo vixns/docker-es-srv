@@ -1,9 +1,7 @@
 FROM docker.elastic.co/elasticsearch/elasticsearch:7.2.0
 
-RUN /usr/share/elasticsearch/bin/elasticsearch-plugin install discovery-file
-
 ENV DISCOVER_HOSTNAME= \
-ES_OPTIONS="-Ecluster.name=es -Ediscovery.zen.hosts_provider=file" \
+ES_OPTIONS="-Ecluster.name=es -Ediscovery.seed_providers=file" \
 DISCOVERY_FREQ_SECONDS=30 \
 DISCOVER_FILE=/usr/share/elasticsearch/config/unicast_hosts.txt
 
