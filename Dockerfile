@@ -1,4 +1,4 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+FROM docker.elastic.co/elasticsearch/elasticsearch:7.3.1
 
 ENV DISCOVER_HOSTNAME= \
 ES_OPTIONS="-Ecluster.name=es -Ediscovery.seed_providers=file" \
