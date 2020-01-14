@@ -8,7 +8,7 @@ dnssrv() {
 
 	for entry in $(dig $NS +short srv $DISCOVER_HOSTNAME | awk '{print $NF}')
 	do
-	  ip=$(dig $NS srv +noanswer $DISCOVER_HOSTNAME | grep "$entry" | awk '{print $NF}')
+	  ip=$(dig $NS srv $DISCOVER_HOSTNAME | grep "$entry" | awk '{print $NF}')
 	  res="${res}${ip}\n"
 	done
 	if [ -n "$res" ]
