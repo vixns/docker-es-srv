@@ -2,21 +2,21 @@
 
 dnssrv() {
 
-	IFS=$'
-	'
-	res=''
+        IFS=$'
+        '
+        res=''
 
-	for entry in $(dig $NS +short srv $DISCOVER_HOSTNAME | awk '{print $NF}')
-	do
-	  ip=$(dig $NS srv +noanswer $DISCOVER_HOSTNAME | grep "$entry" | awk '{print $NF}')
-	  res="${res}${ip}\n"
-	done
-	if [ -n "$res" ]
-	then
-		IPS=$(echo -e ${res%"\n"} | sort)
-	else
-		exit 1
-	fi
+        for entry in $(dig $NS +short srv $DISCOVER_HOSTNAME | grep 9300 | awk '{print $NF}')
+        do
+          ip=$(dig $NS +short a "$entry" | awk '{print $NF}')
+          res="${res}${ip}\n"
+        done
+        if [ -n "$res" ]
+        then
+                IPS=$(echo -e ${res%"\n"} | sort)
+        else
+                exit 1
+        fi
 }
 
 while true
