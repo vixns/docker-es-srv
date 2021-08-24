@@ -6,8 +6,10 @@ DISCOVERY_FREQ_SECONDS=30 \
 DISCOVER_FILE=/usr/share/elasticsearch/config/unicast_hosts.txt
 
 ADD https://github.com/krallin/tini/releases/download/v0.18.0/tini /tini
-RUN curl -s https://packagecloud.io/install/repositories/imeyer/runit/script.rpm.sh | bash \
-&& yum -y install runit-2.1.2-3.el7.centos.x86_64 bind-utils \
+RUN yum -y install bind-utils wget \
+&& wget --content-disposition https://packagecloud.io/imeyer/runit/packages/el/7/runit-2.1.2-3.el7.centos.x86_64.rpm/download.rpm \
+&& yum -y localinstall runit-2.1.2-3.el7.centos.x86_64.rpm \
+&& rm runit-2.1.2-3.el7.centos.x86_64.rpm \
 && yum clean all \
 && chmod +x /tini
 
